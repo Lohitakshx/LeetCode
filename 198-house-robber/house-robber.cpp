@@ -1,18 +1,16 @@
 class Solution {
 public:
-    int robFrom(int i, vector<int>& nums, vector<int>& dp) {
-        if (i >= nums.size()) return 0;
+    int loki(int i , vector<int>& nums, vector<int>& dp){
+        if(i>=nums.size()) return 1;
         if (dp[i] != -1) return dp[i];
 
-        int rob = nums[i] + robFrom(i + 2, nums, dp);
-        int skip = robFrom(i + 1, nums, dp);
-
-        dp[i] = max(rob, skip);
+        
+        dp[i] = max(nums[i]+loki(i+2, nums, dp), loki(i+1, nums, dp));
         return dp[i];
-    }
-
+    };
     int rob(vector<int>& nums) {
         vector<int> dp(nums.size(), -1);
-        return robFrom(0, nums, dp);
+        return loki(0,nums,dp)-1;
+        
     }
 };
