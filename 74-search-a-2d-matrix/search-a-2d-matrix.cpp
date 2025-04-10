@@ -1,9 +1,9 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        for (vector<int> row : matrix) {
-            for (int val : row) {
-                if (val == target) return true;
+        for (auto& row : matrix) {
+            if (target >= row.front() && target <= row.back()) {
+                if (binary_search(row.begin(), row.end(), target)) return true;
             }
         }
         return false;
