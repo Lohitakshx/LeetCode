@@ -1,6 +1,5 @@
 class Solution {
 public:
-int count = 0;
     void merge(vector<int>& arr, int left,int mid, int right){
                          
     int n1 = mid - left + 1;
@@ -35,27 +34,29 @@ int count = 0;
         k++;
     }
 }
-void countAns(vector<int>& arr, int left, int mid, int right){
+int countAns(vector<int>& arr, int left, int mid, int right){
     int temp = mid + 1;
+    int count= 0;
     for (int i = left; i <= mid; i++) {
         while (temp <= right && (long long)arr[i] > 2LL * arr[temp]) temp++;
         count += (temp - (mid + 1));
     }
+    return count;
 }
 
-void mergeSort(vector<int>& arr, int left, int right){
-    
+int mergeSort(vector<int>& arr, int left, int right){
+    int count = 0;
     if (left >= right)
-        return;
+        return 0;
 
     int mid = left + (right - left) / 2;
-    mergeSort(arr, left, mid);
-    mergeSort(arr, mid + 1, right);
-    countAns(arr, left, mid, right);
+    count+=mergeSort(arr, left, mid);
+    count+=mergeSort(arr, mid + 1, right);
+    count+=countAns(arr, left, mid, right);
     merge(arr, left, mid, right);
+    return count;
 }
-    int reversePairs(vector<int>& nums) {
-        mergeSort(nums, 0, nums.size()-1);
-        return count;
+int reversePairs(vector<int>& nums) {
+        return mergeSort(nums, 0, nums.size()-1);
     }
 };
