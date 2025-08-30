@@ -11,14 +11,12 @@
  */
 class Solution {
 public:
-    bool isSymmetric(TreeNode* root) {
-        return loki(root->left, root->right);
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==NULL||q==NULL) return p==q;
+        return (p->val==q->val)&& isSameTree(p->left, q->right) && isSameTree(p->right, q->left);
     }
-
-private:
-    bool loki(TreeNode* n1, TreeNode* n2){
-        if(n1==NULL && n2==NULL) return true;
-        if(n1==NULL || n2==NULL) return false;
-        return n1->val==n2->val && loki(n1->right, n2->left) && loki(n2->right, n1->left);
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL) return true;
+        return isSameTree(root->left, root->right);
     }
 };
