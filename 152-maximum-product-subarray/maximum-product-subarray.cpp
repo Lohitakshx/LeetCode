@@ -2,8 +2,7 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) {
         int maxx = INT_MIN;
-        int pre = 1;
-        int suf = 1;
+        int pre = 1, suf = 1;
         int n = nums.size();
         for(int i = 0; i<n; i++){
             if(pre == 0) pre = 1;
