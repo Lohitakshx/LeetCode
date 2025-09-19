@@ -10,8 +10,7 @@ public:
             if(suf == 0) suf = 1;
             pre *= nums[i];
             suf *= nums[n-i-1];
-            int temp = max(pre, suf);
-            maxx = max(maxx, temp);
+            maxx = max(maxx, max(pre, suf));
         }
         return maxx;
     }
