@@ -1,23 +1,21 @@
 class Solution {
   public:
   
-    void loki(vector<int> &arr, int idx, vector<int> curr, set<vector<int>> &ans ){
-        if(idx == arr.size()) {
-            ans.insert(curr);
-            return;
+    void loki(vector<int> &arr, int idx, vector<int> curr, vector<vector<int>> &ans ){
+        ans.push_back(curr);
+        for(int i =idx; i<arr.size(); i++){
+            if(i!=idx && arr[i]==arr[i-1]) continue;
+            curr.push_back(arr[i]);
+            loki(arr, i+1, curr, ans);
+            curr.pop_back();
         }
-        loki(arr, idx+1, curr, ans);
-        curr.push_back(arr[idx]);
-        loki(arr, idx+1, curr,ans);
         
     }
     vector<vector<int>> subsetsWithDup(vector<int>& arr) {
         vector<int>curr;
         sort(arr.begin(), arr.end());
-        set<vector<int>> ans;
+        vector<vector<int>> ans;
         loki(arr,0, curr, ans);
-        vector<vector<int>> ans1;
-        for(auto i : ans) ans1.push_back(i);
-        return ans1;
+        return ans;
     }
 };
