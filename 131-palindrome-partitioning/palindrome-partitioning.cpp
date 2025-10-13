@@ -1,39 +1,32 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 class Solution {
 public:
-    bool isPalindrome(const string &s, int l, int r) {
-        while (l < r) {
-            if (s[l] != s[r]) return false;
-            l++; r--;
+    bool isPalindrome(string &mine) {
+        int i = 0, j = mine.size() - 1;
+        while (i <= j) {
+            if (mine[i] != mine[j]) return false; 
+            i++;
+            j--;
         }
-        return true;
+        return true; 
     }
-
-    vector<vector<string>> partition(string s) {
-        int n = s.size();
-        vector<vector<string>> ans;
-        queue<pair<int, vector<string>>> q; // index, current partition
-        q.push({0, {}});
-
-        while(!q.empty()) {
-            auto [idx, path] = q.front(); q.pop();
-
-            if(idx == n) {
-                ans.push_back(path);
-                continue;
-            }
-
-            for(int i = idx; i < n; i++) {
-                if(isPalindrome(s, idx, i)) {
-                    auto newPath = path;
-                    newPath.push_back(s.substr(idx, i - idx + 1));
-                    q.push({i + 1, newPath});
-                }
+    void loki (string s, int idx, vector<vector<string>>& ans, vector<string>& q){
+        if(idx == s.length()){
+            ans.push_back(q);
+            return;
+        } 
+        for(int i = idx; i<s.length(); i++){
+            string temp = s.substr(idx, i-idx+1);
+            if(isPalindrome(temp)){
+                 q.push_back(temp);
+                 loki(s, i+1, ans, q);
+                 q.pop_back();
             }
         }
-
+    }
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> ans;
+        vector<string> q;
+        loki(s, 0, ans, q);
         return ans;
     }
 };
