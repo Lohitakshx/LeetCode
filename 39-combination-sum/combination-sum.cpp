@@ -7,7 +7,6 @@ public:
             return;
         }
         for(int i = idx ; i<n; i++){
-            // if(i>idx && candidates[i]==candidates[i-1]) continue;
             if(candidates[i]>target-sum) break;
             q.push_back(candidates[i]);
             loki(candidates, target, sum+candidates[i],n, ans, q, i);
