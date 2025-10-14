@@ -1,22 +1,23 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 class Solution {
 public:
     string getPermutation(int n, int k) {
+        int fact = 1;
+        for(int i =1; i<n; i++){
+            fact*=i;
+        }
         vector<int> nums;
-        for(int i = 1; i <= n; i++)
+        for(int i = 1; i<=n; i++){
             nums.push_back(i);
-        
-        // generate permutations k-1 times
-        for(int i = 1; i < k; i++)
-            next_permutation(nums.begin(), nums.end());
-        
-        // convert the k-th permutation to string
+        }
+        k--;
         string ans = "";
-        for(int num : nums)
-            ans += to_string(num);
-        
+        while(true){
+            ans+=to_string(nums[k/fact]);
+            nums.erase(nums.begin()+k/fact );
+            if(nums.size()==0 ) break;
+            k = k%fact;
+            fact = fact / nums.size();
+        }
         return ans;
     }
 };
