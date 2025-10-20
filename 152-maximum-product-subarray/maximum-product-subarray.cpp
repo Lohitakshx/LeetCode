@@ -1,18 +1,17 @@
 class Solution {
-public:
+public: //optimal : O(n)
     int maxProduct(vector<int>& nums) {
+        int maxx = INT_MIN;
+        int pre = 1; 
+        int suf = 1;
         int n = nums.size();
-        vector<int> maxProd(n), minProd(n);
-        
-        maxProd[0] = minProd[0] = nums[0];
-        int ans = nums[0];
-        
-        for(int i = 1; i < n; i++) {
-            maxProd[i] = max({nums[i], nums[i] * maxProd[i-1], nums[i] * minProd[i-1]});
-            minProd[i] = min({nums[i], nums[i] * maxProd[i-1], nums[i] * minProd[i-1]});
-            ans = max(ans, maxProd[i]);
+        for(int i = 0; i<n; i++){
+            if(pre == 0) pre = 1;
+            if(suf == 0) suf = 1;
+            pre *= nums[i];
+            suf *= nums[n-i-1];
+            maxx = max(maxx, max(pre, suf));
         }
-        
-        return ans;
+        return maxx;
     }
 };
