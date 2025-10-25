@@ -1,23 +1,30 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        set<vector<int>> ansSet;
+        sort(nums.begin(), nums.end());
         int n = nums.size();
-        for(int i = 0; i< n; i++){
-            for(int j = i+1; j<n; j++){
-                unordered_set<long long> s;
-                for(int k = j+1; k<n; k++){
-                    long long comp =(long long) target - nums[i] - nums[j] - nums[k];
-                    if(s.find(comp)!=s.end()){
-                        vector<int> temp = {nums[i], nums[j], nums[k], (int)comp};
+        vector<vector<int>> ans;
+        for(int i = 0; i < n; i++){
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            for(int j = i+1; j< n; j++){
+                if(j>i+1 && nums[j]==nums[j-1]) continue;
+                int l = j+1 , r = n-1;
+                while(l<r){
+                    long long sum = (long long) nums[i]+nums[j]+nums[l]+nums[r];
+                    if(sum<target) l++;
+                    else if (sum > target) r--;
+                    else{
+                        vector<int> temp = {nums[i], nums[j], nums[l], nums[r]};
                         sort(temp.begin(), temp.end());
-                        ansSet.insert(temp);
+                        ans.push_back(temp);
+                        l++, r--;
+                        while(l<r && nums[l]==nums[l-1]) l++;
+                        while(l<r && nums[r]==nums[r+1]) r--;
                     }
-                    s.insert(nums[k]);
                 }
+                
             }
         }
-        vector<vector<int>> ans(ansSet.begin(), ansSet.end());
         return ans;
     }
 };
