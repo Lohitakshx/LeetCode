@@ -1,9 +1,16 @@
 class Solution:
     def hIndex(self, citations: List[int]) -> int:
-        citations.sort()
-        count = 0
-        n = len(citations)
-        for i in range(n - 1, -1, -1):
-            if citations[i]<count+1 : return count
-            count+=1
-        return count
+        minn = 0
+        maxx = len(citations)
+        ans = 0
+        while(minn<=maxx):
+            avgg = (minn + maxx)//2
+            count = 0
+            for i in citations:
+                if i >= avgg: count+=1
+            if count >= avgg : 
+                ans = avgg
+                minn = avgg+1
+            else : 
+                maxx = avgg-1
+        return ans
