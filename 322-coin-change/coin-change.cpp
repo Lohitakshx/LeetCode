@@ -1,15 +1,18 @@
 class Solution {
 public:
-    int coinChange(vector<int>& coins, int amount) {
-        vector<int> dp(amount + 1, amount + 1); // using amount+1 as "infinity"
-        dp[0] = 0;
-
-        for (int coin : coins) {
-            for (int i = coin; i <= amount; ++i) {
-                dp[i] = min(dp[i], dp[i - coin] + 1);
-            }
+    int solve(vector<int>& coins, int amount, vector<int>& dp){
+        if(amount == 0) return 0;
+        if(amount < 0) return -1;
+        if(dp[amount]!=-2) return dp[amount];
+        int minn = INT_MAX;
+        for(int i = 0; i<coins.size(); i++){
+            int res = solve(coins, amount- coins[i], dp);
+            if(res>= 0 && res<minn) minn = res + 1;
         }
-
-        return dp[amount] > amount ? -1 : dp[amount];
+        return dp[amount] = (minn == INT_MAX) ? -1: minn;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> dp(amount+1, -2);
+        return solve(coins, amount, dp);
     }
 };
