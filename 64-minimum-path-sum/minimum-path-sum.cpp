@@ -8,7 +8,8 @@ public:
         if(dp[i][j]!= -1) return dp[i][j];
         int right = solve(grid, i+1, j, dp);
         int down = solve(grid, i, j+1, dp);
-        return dp[i][j] = grid[i][j] + min(right, down);
+        dp[i][j] = grid[i][j] + min(right, down);
+        return dp[i][j];
     }
     int minPathSum(vector<vector<int>>& grid) {
         int m = grid.size(), n = grid[0].size();
