@@ -28,7 +28,7 @@ public:
                 temp = st1.top();
                 st1.pop(), st2.pop();
             } 
-            else return temp;
+            else break;
         
         }
         return temp;
