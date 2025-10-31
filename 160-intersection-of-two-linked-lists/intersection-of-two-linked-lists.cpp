@@ -9,16 +9,37 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode* slow = headA;
-        ListNode* fast  = headB;
-        while(slow){
-            fast = headB;
-            while(fast){
-                if(slow==fast) return slow;
-                fast = fast->next;
-            }
-            slow = slow->next; 
+        stack<ListNode*> st1;
+        stack<ListNode*> st2;
+        ListNode* temp1 = headA;
+        ListNode* temp2 = headB;
+        while(temp1){
+            st1.push(temp1);
+            temp1 = temp1 -> next;
         }
+        while(temp2){
+            st2.push(temp2);
+            temp2 = temp2 -> next;
+        }
+        while(!st1.empty() && !st2.empty()){
+            cout<<st1.top()->val<<" "<< st2.top()->val<<endl;
+            ListNode* temp = st1.top();;
+            if(st1.top()==st2.top()) st1.pop(), st2.pop();
+            else return temp->next;
+        
+        }
+        if(st1.empty()) return headA;
+        if(st2.empty()) return headB;
+        // ListNode* loki  = headA;
+        // ListNode* baki  = headB;
+        // while(loki) {
+        //     if(loki==headB) return loki;
+        //     loki = loki->next;
+        // }
+        // while(baki) {
+        //     if(baki==headB) return baki;
+        //     baki = baki->next;
+        // }
         return NULL;
     }
 };
