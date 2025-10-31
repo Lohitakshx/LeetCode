@@ -21,14 +21,16 @@ public:
             st2.push(temp2);
             temp2 = temp2 -> next;
         }
+        ListNode* temp = NULL;
         while(!st1.empty() && !st2.empty()){
-            cout<<st1.top()->val<<" "<< st2.top()->val<<endl;
-            ListNode* temp = st1.top();;
-            if(st1.top()==st2.top()) st1.pop(), st2.pop();
-            else return temp->next;
+            // cout<<st1.top()->val<<" "<< st2.top()->val<<endl;
+            if(st1.top()==st2.top()){
+                temp = st1.top();
+                st1.pop(), st2.pop();
+            } 
+            else return temp;
         
         }
-        if(st1.empty()) return headA;
-        return headB;
+        return temp;
     }
 };
