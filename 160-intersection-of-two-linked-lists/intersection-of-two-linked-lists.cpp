@@ -29,17 +29,6 @@ public:
         
         }
         if(st1.empty()) return headA;
-        if(st2.empty()) return headB;
-        // ListNode* loki  = headA;
-        // ListNode* baki  = headB;
-        // while(loki) {
-        //     if(loki==headB) return loki;
-        //     loki = loki->next;
-        // }
-        // while(baki) {
-        //     if(baki==headB) return baki;
-        //     baki = baki->next;
-        // }
-        return NULL;
+        return headB;
     }
 };
