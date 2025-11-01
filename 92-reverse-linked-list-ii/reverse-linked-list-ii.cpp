@@ -10,11 +10,11 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* head){
+    ListNode* reverse(ListNode* head, ListNode* tail){
         ListNode* pre = NULL;
         ListNode* curr = head;
         ListNode* next = NULL;
-        while(curr){
+        while(curr!=tail){
             next = curr->next;
             curr->next = pre;
             pre = curr;
@@ -29,17 +29,11 @@ public:
         ListNode* tail = pre->next;
         for(int i = 0; i<right-left; i++) tail = tail->next;
         ListNode * end = tail->next;
-        tail ->next = NULL;
-        ListNode* newHead = reverse(pre->next);
+        ListNode* newHead = reverse(pre->next, tail->next);
         pre->next = newHead;
         ListNode* temp = head;
-        // while(temp){
-        //     cout<<temp->val<<" ";
-        //     temp = temp->next;
-        // }
         while(temp&&temp->next){
             temp = temp->next;
-            cout<<temp->val<<" ";
         }
         temp->next = end;
         return dummy->next;
