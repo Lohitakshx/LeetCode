@@ -21,7 +21,7 @@ public:
             ListNode* next = curr->next;
             if(st.find(curr->val)!=st.end()){
                 pre->next = next;
-                curr = pre->next;
+                curr = curr->next;
             }
             else{
                 pre = pre->next;
