@@ -21,12 +21,14 @@ public:
             ListNode* next = curr->next;
             if(st.find(curr->val)!=st.end()){
                 pre->next = next;
+                curr = pre->next;
             }
             else{
                 pre = pre->next;
+                curr = curr->next;
             }
             
-            curr = curr->next;
+            
 
         }
         return dummy->next;
