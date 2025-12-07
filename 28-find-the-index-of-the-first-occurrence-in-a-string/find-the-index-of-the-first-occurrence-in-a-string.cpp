@@ -4,16 +4,11 @@ public:
         int h = haystack.size();
         int n = needle.size();
         int last = 0;
-        for(int i  = 0; i<h; i++){
-            if(haystack[i]==needle[last]){
-                last++;
-            }
-            else{
-                i = i-last;
-                last = 0;
-            }
-            if(last == n){
-                return i-last+1;
+        if(n==h && haystack==needle) return 0;
+        if(h<n) return -1;
+        for(int i  = 0; i<=h-n; ++i){
+            if(haystack.substr(i, n) == needle){
+                return i;
             }
         } 
         return -1;
