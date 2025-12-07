@@ -1,16 +1,7 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int h = haystack.size();
-        int n = needle.size();
-        int last = 0;
-        if(n==h && haystack==needle) return 0;
-        if(h<n) return -1;
-        for(int i  = 0; i<=h-n; ++i){
-            if(haystack.substr(i, n) == needle){
-                return i;
-            }
-        } 
-        return -1;
+        size_t pos = haystack.find(needle);
+        return pos == string::npos ? -1 : pos;
     }
 };
