@@ -9,11 +9,15 @@
 class Solution {
 public:
     ListNode* getIntersectionNode(ListNode* headA, ListNode* headB) {
-        for (ListNode* a = headA; a; a = a->next) {
-            for (ListNode* b = headB; b; b = b->next) {
-                if (a == b) return a;
-            }
-        }
+        unordered_set<ListNode*> st;
+
+        for (ListNode* a = headA; a; a = a->next)
+            st.insert(a);
+
+        for (ListNode* b = headB; b; b = b->next)
+            if (st.count(b)) return b;
+
         return nullptr;
     }
+
 };
