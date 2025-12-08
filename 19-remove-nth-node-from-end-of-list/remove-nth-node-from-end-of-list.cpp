@@ -14,10 +14,9 @@ public:
         ListNode* dummy = new ListNode(0);
         dummy -> next = head;
         ListNode* fast = dummy;
-        while(n){
-            fast = fast->next;
-            n--;
-        }
+        
+        for (int i = 0; i < n; i++) fast = fast->next;
+        
         ListNode* temp = dummy;
         while(fast && fast->next){
             temp = temp->next;
