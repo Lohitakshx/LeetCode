@@ -11,7 +11,7 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-                vector<int> arr;
+        vector<int> arr;
 
         // Pointer to traverse the list
         ListNode* temp = head;
