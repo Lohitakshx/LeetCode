@@ -1,22 +1,19 @@
 class Solution {
-  public:
-  
-    void loki(vector<int> &arr, int idx, vector<int>& curr, vector<vector<int>> &ans ){
-        if(idx == arr.size()) {
-            ans.push_back(curr);
+public:
+    void solve(vector<int>& nums, vector<vector<int>>& ans, vector<int>& temp, int idx){
+        if(idx==nums.size()) {
+            ans.push_back(temp);
             return;
         }
-        loki(arr, idx+1, curr, ans);
-        curr.push_back(arr[idx]);
-        loki(arr, idx+1, curr,ans);
-        curr.pop_back();
-        
+        solve(nums, ans, temp, idx+1);
+        temp.push_back(nums[idx]); // take
+        solve(nums, ans, temp, idx+1);
+        temp.pop_back();
     }
-    vector<vector<int>> subsets(vector<int>& arr) {
-        vector<int>curr;
+    vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> ans;
-        loki(arr,0, curr, ans);
-        sort(ans.begin(), ans.end());
+        vector<int> temp;
+        solve(nums, ans, temp, 0);
         return ans;
     }
 };
