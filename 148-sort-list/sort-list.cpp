@@ -8,32 +8,84 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+
 class Solution {
 public:
+    // Function to merge two sorted linked lists
+    ListNode* mergeTwoSortedLinkedLists(ListNode* list1, ListNode* list2) {
+        // Create a dummy node
+        ListNode* dummyNode = new ListNode(-1);
+        
+        // Temp pointer to build merged list
+        ListNode* temp = dummyNode;
+
+        // Traverse both lists
+        while (list1 != nullptr && list2 != nullptr) {
+            // Choose smaller node
+            if (list1->val <= list2->val) {
+                temp->next = list1;
+                list1 = list1->next;
+            } else {
+                temp->next = list2;
+                list2 = list2->next;
+            }
+            // Move temp pointer
+            temp = temp->next;
+        }
+
+        // Attach remaining nodes
+        if (list1 != nullptr) {
+            temp->next = list1;
+        } else {
+            temp->next = list2;
+        }
+
+        // Return head of merged list
+        return dummyNode->next;
+    }
+
+    // Function to find middle of linked list
+    ListNode* findMiddle(ListNode* head) {
+        // If list empty or single node
+        if (head == nullptr || head->next == nullptr) {
+            return head;
+        }
+
+        // Slow and fast pointers
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+
+        // Move fast twice as fast as slow
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Return middle node
+        return slow;
+    }
+
+    // Function to perform merge sort
     ListNode* sortList(ListNode* head) {
-        vector<int> arr;
-
-        // Pointer to traverse the list
-        ListNode* temp = head;
-
-        // Traverse and push values into vector
-        while (temp != nullptr) {
-            arr.push_back(temp->val);
-            temp = temp->next;
+        // Base case: empty or single node
+        if (head == nullptr || head->next == nullptr) {
+            return head;
         }
 
-        // Sort the vector
-        sort(arr.begin(), arr.end());
+        // Find middle node
+        ListNode* middle = findMiddle(head);
 
-        // Reassign sorted values to list nodes
-        temp = head;
-        for (int i = 0; i < arr.size(); i++) {
-            temp->val = arr[i];
-            temp = temp->next;
-        }
+        // Split into two halves
+        ListNode* right = middle->next;
+        middle->next = nullptr;
+        ListNode* left = head;
 
-        // Return head of sorted list
-        return head;
+        // Recursively sort both halves
+        left = sortList(left);
+        right = sortList(right);
 
+        // Merge sorted halves
+        return mergeTwoSortedLinkedLists(left, right);
     }
 };
