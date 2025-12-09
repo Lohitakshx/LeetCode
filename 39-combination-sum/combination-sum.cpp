@@ -1,24 +1,22 @@
-
 class Solution {
 public:
-    void loki(vector<int>& candidates, int target, int sum, int n, vector<vector<int>>& ans, vector<int>& q, int idx){
-        if(sum==target){
-            ans.push_back(q);
+    void solve(vector<int>& nums, int target, vector<int>& temp, vector<vector<int>>& ans,int idx, int sum){
+        if(sum==target) {
+            ans.push_back(temp);
             return;
-        }
-        for(int i = idx ; i<n; i++){
-            if(candidates[i]>target-sum) break;
-            q.push_back(candidates[i]);
-            loki(candidates, target, sum+candidates[i],n, ans, q, i);
-            q.pop_back();
+            }
+        for(int i = idx; i<nums.size(); i++){
+            if(nums[i]>target-sum) break;
+            temp.push_back(nums[i]);
+            solve(nums, target, temp, ans, i, sum+nums[i]);
+            temp.pop_back();
         }
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        int n = candidates.size();
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
         vector<vector<int>> ans;
-        vector<int> q;
-        sort(candidates.begin(), candidates.end());
-        loki(candidates, target, 0, n, ans, q, 0);
+        vector<int> temp;
+        sort(nums.begin(), nums.end());
+        solve(nums, target, temp, ans, 0, 0);
         return ans;
     }
 };
