@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    bool dfs(vector<vector<char>> & board, string word, int i, int j, int idx){
+    bool dfs(vector<vector<char>> & board, string& word, int i, int j, int idx){
         if (idx == word.size()) return true;
         int m = board.size(), n = board[0].size();
         if(i<0 || i>=m || j<0 || j>=n || board[i][j]!=word[idx]) return false;
