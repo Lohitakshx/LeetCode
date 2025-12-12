@@ -26,13 +26,13 @@ public:
             int row = q.front().first.first;
             int col = q.front().first.second;
             int time = q.front().second;
+            ans = max(time, ans);
             q.pop();
             for(int i = 0 ; i<4 ; i++){
                 int tempRow = row + drow[i];
                 int tempCol = col + dcol[i];
                 if(tempRow >= 0 && tempRow<m && tempCol >=0 && tempCol < n && grid[tempRow][tempCol] == 1 && vis[tempRow][tempCol]!=1){
                     q.push({{tempRow, tempCol}, time+1});
-                    ans = max(time+1, ans);
                     freshCount--;
                     vis[tempRow][tempCol] = 1;
                 }
