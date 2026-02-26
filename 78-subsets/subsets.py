@@ -3,9 +3,5 @@ class Solution:
         ans = []
         n = len(nums)
         for mask in range(1<<n):
-            subset = []
-            for i in range(n):
-                if mask & (1<<i):
-                    subset.append(nums[i])
-            ans.append(subset.copy())
+            ans.append([nums[i] for i in range(n) if mask & (1<<i)])
         return ans
