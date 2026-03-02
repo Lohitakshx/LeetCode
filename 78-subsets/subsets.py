@@ -1,4 +1,12 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        n = len(nums)
-        return [[nums[i] for i in range(n) if mask & (1<<i)] for mask in range(1<<n)]
+        subset = []
+        ans = []
+        def dfs(idx):
+            ans.append(subset.copy())
+            for i in range(idx, len(nums)):
+                subset.append(nums[i])
+                dfs(i+1)
+                subset.pop()
+        dfs(0)
+        return ans
