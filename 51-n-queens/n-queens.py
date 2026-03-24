@@ -20,18 +20,20 @@ class Solution:
             row+=1
         return True
 
-    def solve(self, ans, board, n, col):
-        if col == n : 
-            ans.append(["".join(row) for row in board])
-            return
-        for row in range(n):
-            if self.isSafe(board, row, col, n):
-                board[row][col] = 'Q'
-                self.solve(ans, board, n, col+1)
-                board[row][col] = '.'
 
     def solveNQueens(self, n: int) -> List[List[str]]:
         ans = []
         board = [['.'] * n for _ in range(n)]
-        self.solve(ans, board, n, 0)
+
+        def solve(col):
+            if col == n : 
+                ans.append(["".join(row) for row in board])
+                return
+            for row in range(n):
+                if self.isSafe(board, row, col, n):
+                    board[row][col] = 'Q'
+                    solve(col+1)
+                    board[row][col] = '.'
+
+        solve(0)
         return ans
