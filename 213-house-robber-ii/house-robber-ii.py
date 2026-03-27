@@ -1,10 +1,13 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         if len(nums) == 1 : return nums[0]
-        def dfs(idx, arr, dp):
-            if idx < 0 : return 0
-            if dp[idx] != -1 : return dp[idx]
-            dp[idx] = max(dfs(idx-2, arr, dp) + arr[idx] , dfs(idx-1, arr, dp))
-            return dp[idx]
-        return max(dfs(len(nums[1:])-1,nums[1:], [-1]*len(nums[1:])), dfs(len(nums[:-1])- 1, nums[:-1], [-1] * len(nums[:-1])))
-        
+        return max(self.helper(nums[1:]), self.helper(nums[:-1]))
+
+    def helper(self, nums: List[int]) -> int:
+        dp = [0] * len(nums)
+        if len(nums) == 0 : return 0
+        if len(nums) == 1 : return nums[0]
+        dp[0], dp[1] = nums[0], max(nums[0], nums[1])
+        for i in range(2, len(nums)):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+        return dp[len(nums)-1] 
