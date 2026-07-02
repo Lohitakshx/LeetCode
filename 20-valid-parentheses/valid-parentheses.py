@@ -9,11 +9,8 @@ class Solution:
         for i in s:
             if i in '({[': 
                 arr.append(i)
+            elif arr and pairs[i] == arr[-1]:
+                arr.pop()
             else:
-                if not arr:
-                    return False
-                if pairs[i] == arr[-1]:
-                    arr.pop()
-                else:
-                    return False
+                return False
         return not arr
