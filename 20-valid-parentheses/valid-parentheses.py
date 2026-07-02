@@ -1,16 +1,7 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        arr = []
-        pairs = {
-            ')' : '(',
-            '}' : '{',
-            ']' : '['
-        }
-        for i in s:
-            if i in '({[': 
-                arr.append(i)
-            elif arr and pairs[i] == arr[-1]:
-                arr.pop()
-            else:
-                return False
-        return not arr
+        while '()' in s or '{}' in s or '[]' in s:
+            s = s.replace('()', '')
+            s = s.replace('{}', '')
+            s = s.replace('[]', '')
+        return s == ''
